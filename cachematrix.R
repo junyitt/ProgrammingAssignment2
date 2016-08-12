@@ -1,33 +1,39 @@
-## Let x be the input invertible matrix, 
-## makeCacheMatrix(x) will return a list of four functions which cache the inverse of x if the inverse was previously computed.
+## Put comments here that give an overall description of what your
+## functions do
+
+## Write a short comment describing this function
 
 makeCacheMatrix <- function(x = matrix()) {
-        m <- NULL
-        set <- function(y) {
-                x <<- y
-                m <<- NULL
-        }
-        get <- function() x
-        setsolve <- function(solve) m <<- solve
-        getsolve <- function () m
-        list(set = set, get = get,
-             setsolve = setsolve,
-             getsolve = getsolve)
+      m <- NULL
+      set <- function(y) {
+            x <<- y
+            m <<- NULL
+      }
+      get <- function() x
+      setsolve <- function(j) m <<- j
+      getsolve <- function() m
+      list(set = set, get = get,
+           setsolve = setsolve,
+           getsolve = getsolve)
 }
 
-## Let y be assigned makeCacheMatrix(x), i.e y <- makeCacheMatrix(x)
-## if the inverse of x was previously cached into the variable m in the makeCacheMatrix() environment; 
-## cacheSolve(y) will then return the inverse of x;
-## else, the inverse of x will be computed and printed.
+## Write a short comment describing this function
 
 cacheSolve <- function(x, ...) {
-        m <- x$getsolve()
-        if(!is.null(m)) { 
-                message("getting cached data")
-                return(m)
-        }
-        data <- x$get()
-        m <- solve(data, ...)
-        x$setsolve(m)
-        m
+      ## Return a matrix that is the inverse of 'x'
+      m <- x$getsolve()
+      if(!is.null(m)) {
+            message("getting cached data")
+            return(m)
+      }
+      data <- x$get()
+      m <- solve(data, ...)
+      x$setsolve(m)
+      m
 }
+
+# examples
+# c<-matrix(rnorm(1000000),1000,1000)
+# k <- makeVector(c)
+# h <- cachesolve(k)
+
